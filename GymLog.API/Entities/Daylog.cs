@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GymLog.API.Entities {
-    public class Daylog {
-
-        public Daylog() {
+namespace GymLog.API.Entities
+{
+    public class Daylog
+    {
+        public Daylog()
+        {
             Workouts = new List<Workout>();
         }
 
@@ -13,7 +15,7 @@ namespace GymLog.API.Entities {
 
         public string UserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
-        public virtual ICollection<Workout> Workouts { get; set; }
+        public virtual User User { get; set; }
+        public virtual List<Workout> Workouts { get; set; }
     }
 }

@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace GymLog.API.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser
     {
-
-        public ApplicationUser()
+        public User()
         {
             Workouts = new List<Workout>();
             Daylogs = new List<Daylog>();
         }
 
-        public virtual ICollection<Daylog> Daylogs { get; set; }
-        public virtual ICollection<Workout> Workouts { get; set; }
+        public virtual List<Daylog> Daylogs { get; set; }
+        public virtual List<Workout> Workouts { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

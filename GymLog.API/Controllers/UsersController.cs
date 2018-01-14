@@ -7,83 +7,84 @@ using System.Web.Http;
 
 namespace GymLog.API.Controllers
 {
-    [RoutePrefix("api/muscles")]
-    public class MusclesController : ApiController
+    [RoutePrefix("api/users")]
+    public class UsersController : ApiController
     {
         private IGymLogRepository _repo;
         private ModelFactory _modelFactory;
 
-        public MusclesController(IGymLogRepository repo, ModelFactory modelFactory)
+        public UsersController(IGymLogRepository repo, ModelFactory modelFactory)
         {
             _repo = repo;
             _modelFactory = modelFactory;
         }
 
-        [Route("", Name = "Muscles")]
-        public IEnumerable<MuscleModel> Get()
+        //[Authorize]
+        [Route("", Name = "Users")]
+        public IEnumerable<UserModel> Get()
         {
-            var muscles = _repo.GetMuscles().ToList().Select(m => _modelFactory.Create(m));
-            return muscles;
+            var users = _repo.GetUsers().ToList().Select(u => _modelFactory.Create(u));
+            return users;
         }
 
 
-        [Route("{id}", Name = "Muscle")]
-        public IHttpActionResult Get(int id)
+        [Route("{id}", Name = "User")]
+        public IHttpActionResult Get(string id)
         {
-            var muscle = _repo.GetMuscle(id);
-            if (muscle == null)
+            var user = _repo.GetUser(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return Ok(_modelFactory.Create(muscle));
+            return Ok(_modelFactory.Create(user));
         }
 
 
         [Route("")]
-        public IHttpActionResult Post(Muscle muscle)
+        public IHttpActionResult Post(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _repo.Insert(muscle);
+            _repo.Insert(user);
             _repo.SaveAll();
-            return Ok(muscle);
+            return Ok(user);
         }
 
 
         [Route("{id}")]
-        public IHttpActionResult Put(int id, Muscle muscle)
+        public IHttpActionResult Put(string id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (id != muscle.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
-            if (_repo.GetMuscle(id) == null)
+            if (_repo.GetUser(id) == null)
             {
                 return NotFound();
             }
-            _repo.Update(muscle);
+            _repo.Update(user);
             _repo.SaveAll();
-            return Ok(muscle);
+            return Ok(user);
         }
 
 
         [Route("{id}")]
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult Delete(string id)
         {
-            Muscle muscle = _repo.GetMuscle(id);
-            if (muscle == null)
+            User user = _repo.GetUser(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            _repo.Delete(muscle);
+            _repo.Delete(user);
             _repo.SaveAll();
-            return Ok(muscle);
+            return Ok(user);
         }
     }
 }

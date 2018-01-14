@@ -25,5 +25,23 @@ namespace GymLog.API.Infrastructure
         void Insert(Exercise ex);
         bool Update(Exercise ex);
         void Delete(Exercise ex);
+
+        IQueryable<User> GetUsers();
+        User GetUser(string id);
+        void Insert(User user);
+        bool Update(User user);
+        void Delete(User user);
+
+        IQueryable<Workout> GetWorkouts();
+        Workout GetWorkout(int id);
+        void Insert(Workout wk);
+        bool Update(Workout wk);
+        void Delete(Workout wk);
+
+        IQueryable<Daylog> GetDaylogs();
+        Daylog GetDaylog(int id);
+        void Insert(Daylog dl);
+        bool Update(Daylog dl);
+        void Delete(Daylog dl);
     }
 }

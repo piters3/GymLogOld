@@ -1,6 +1,7 @@
 ﻿using GymLog.API.Entities;
 using GymLog.API.Infrastructure;
 using GymLog.API.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -10,25 +11,19 @@ namespace GymLog.API.Controllers
     public class ExercisesController : ApiController
     {
         private IGymLogRepository _repo;
+        private ModelFactory _modelFactory;
 
-        public ExercisesController(IGymLogRepository repo)
+        public ExercisesController(IGymLogRepository repo, ModelFactory modelFactory)
         {
             _repo = repo;
+            _modelFactory = modelFactory;
         }
 
 
         [Route("", Name = "Exercises")]
-        public IQueryable<ExerciseModel> Get()
+        public IEnumerable<ExerciseModel> Get()
         {
-            var exercises = _repo.GetExercises().Select(e =>
-                new ExerciseModel()
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Description = e.Description,
-                    Equipment = e.Equipment.Name,
-                    Muscle = e.Muscle.Name
-                });
+            var exercises = _repo.GetExercises().ToList().Select(m => _modelFactory.Create(m));
             return exercises;
         }
 
@@ -41,14 +36,7 @@ namespace GymLog.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(new ExerciseModel()
-            {
-                Id = ex.Id,
-                Name = ex.Name,
-                Description = ex.Description,
-                Equipment = ex.Equipment.Name,
-                Muscle = ex.Muscle.Name
-            });
+            return Ok(_modelFactory.Create(ex));
         }
 
 

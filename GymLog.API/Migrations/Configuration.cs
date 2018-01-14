@@ -34,7 +34,7 @@ namespace GymLog.API.Migrations
 
             var hasher = new PasswordHasher();
 
-            var admin = new ApplicationUser
+            var admin = new User
             {
                 UserName = "admin",
                 Email = "admin@admin.com",
@@ -47,7 +47,7 @@ namespace GymLog.API.Migrations
 
             context.Users.Add(admin);
 
-            var user = new ApplicationUser
+            var user = new User
             {
                 UserName = "user",
                 Email = "user@user.com",
@@ -93,13 +93,25 @@ namespace GymLog.API.Migrations
             equipments.ForEach(m => context.Equipments.AddOrUpdate(x => x.Name, m));
             context.SaveChanges();
 
+            var klata = new List<Muscle>
+            {
+                muscles.Where(m => m.Name == "Klatka piersiowa").FirstOrDefault(),
+                muscles.Where(m => m.Name == "Barki").FirstOrDefault()
+            };
+            var przysiady = new List<Muscle>
+            {
+                muscles.Where(m => m.Name == "Udo").FirstOrDefault(),
+                muscles.Where(m => m.Name == "Poœladki").FirstOrDefault(),
+                muscles.Where(m => m.Name == "£ydki").FirstOrDefault()
+            };
 
 
-            var exercises = new List<Exercise> {
-                new Exercise() { Name = "Wyciskanie sztangi le¿¹c", Description = "Bla bla bla", Muscle = muscles.Single(m=>m.Name=="Klatka piersiowa"), Equipment = equipments.Single(m=>m.Name=="£awka prosta")},
-                new Exercise() { Name = "Przysiady", Description = "Bla bla bla", Muscle = muscles.Single(m=>m.Name=="Udo"), Equipment = equipments.Single(m=>m.Name=="Suwnica")},
-                new Exercise() { Name = "Podci¹ganie", Description = "Bla bla bla", Muscle = muscles.Single(m=>m.Name=="Plecy"), Equipment = equipments.Single(m=>m.Name=="Dr¹¿ek")},
-                };
+            var exercises = new List<Exercise>
+            {
+                new Exercise() { Name = "Wyciskanie sztangi le¿¹c", Description = "Bla bla bla", Muscles = new List<Muscle>(klata) ,Equipment = equipments.Single(m=>m.Name=="£awka prosta")},
+                new Exercise() { Name = "Przysiady", Description = "Bla bla bla", Muscles = new List<Muscle>(przysiady), Equipment = equipments.Single(m=>m.Name=="Suwnica")},
+                new Exercise() { Name = "Podci¹ganie", Description = "Bla bla bla", Muscles = new List<Muscle>(muscles.Where(m=>m.Name=="Plecy")), Equipment = equipments.Single(m=>m.Name=="Dr¹¿ek")},
+            };
             exercises.ForEach(m => context.Exercises.AddOrUpdate(x => x.Name, m));
             context.SaveChanges();
 
@@ -161,10 +173,10 @@ namespace GymLog.API.Migrations
 
             if (!context.Users.Any())
             {
-                var userStore = new UserStore<ApplicationUser>(context);
+                var userStore = new UserStore<User>(context);
                 var userManager = new ApplicationUserManager(userStore);
 
-                var admin = new ApplicationUser
+                var admin = new User
                 {
                     UserName = "admin",
                     Email = "admin@admin.com",
@@ -175,7 +187,7 @@ namespace GymLog.API.Migrations
                 userManager.Create(admin, "admin1");
                 userManager.AddToRole(admin.Id, "admin");
 
-                var user = new ApplicationUser
+                var user = new User
                 {
                     UserName = "user",
                     Email = "user@user.com",
@@ -185,6 +197,6 @@ namespace GymLog.API.Migrations
                 userManager.Create(user, "Uzytkownik1");
                 userManager.AddToRole(user.Id, "user");
             }
-        }        
+        }
     }
 }

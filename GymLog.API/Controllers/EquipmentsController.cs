@@ -11,23 +11,20 @@ namespace GymLog.API.Controllers
     {
 
         private IGymLogRepository _repo;
+        private ModelFactory _modelFactory;
 
 
-        public EquipmentsController(IGymLogRepository repo)
+        public EquipmentsController(IGymLogRepository repo, ModelFactory modelFactory)
         {
             _repo = repo;
+            _modelFactory = modelFactory;
         }
 
 
         [Route("", Name = "Equipments")]
         public IQueryable<EquipmentModel> Get()
         {
-            var equipments = _repo.GetEquipments().Select(m =>
-                new EquipmentModel()
-                {
-                    Id = m.Id,
-                    Name = m.Name,
-                });
+            var equipments = _repo.GetEquipments().Select(m => _modelFactory.Create(m));
             return equipments;
         }
 
@@ -40,11 +37,7 @@ namespace GymLog.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(new EquipmentModel()
-            {
-                Id = equipment.Id,
-                Name = equipment.Name
-            });
+            return Ok(_modelFactory.Create(equipment));
         }
 
 

@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace GymLog.API.Infrastructure
 {
-    public class GymLogContext : IdentityDbContext<ApplicationUser>
+    public class GymLogContext : IdentityDbContext<User>
     {
         public GymLogContext() : base("GymlogDB", throwIfV1Schema: false)
         {
