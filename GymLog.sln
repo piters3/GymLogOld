@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymLog.API", "GymLog.API\GymLog.API.csproj", "{A59B1E6D-A3D9-4796-80FF-571263B5B4DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymLog.MVC", "GymLog.MVC\GymLog.MVC.csproj", "{FBC502A0-2329-4639-9CCF-6A014E307EAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{5686507D-5BAA-4493-98DF-6CECCC5B2B07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{A59B1E6D-A3D9-4796-80FF-571263B5B4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59B1E6D-A3D9-4796-80FF-571263B5B4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59B1E6D-A3D9-4796-80FF-571263B5B4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC502A0-2329-4639-9CCF-6A014E307EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC502A0-2329-4639-9CCF-6A014E307EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC502A0-2329-4639-9CCF-6A014E307EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC502A0-2329-4639-9CCF-6A014E307EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5686507D-5BAA-4493-98DF-6CECCC5B2B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5686507D-5BAA-4493-98DF-6CECCC5B2B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5686507D-5BAA-4493-98DF-6CECCC5B2B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5686507D-5BAA-4493-98DF-6CECCC5B2B07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

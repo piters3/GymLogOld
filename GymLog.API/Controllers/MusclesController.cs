@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace GymLog.API.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/muscles")]
     public class MusclesController : ApiController
     {

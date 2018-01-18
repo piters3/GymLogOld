@@ -1,6 +1,7 @@
 ﻿using GymLog.API.Entities;
 using GymLog.API.Infrastructure;
 using GymLog.API.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -22,9 +23,9 @@ namespace GymLog.API.Controllers
 
 
         [Route("", Name = "Equipments")]
-        public IQueryable<EquipmentModel> Get()
+        public IEnumerable<EquipmentModel> Get()
         {
-            var equipments = _repo.GetEquipments().Select(m => _modelFactory.Create(m));
+            var equipments = _repo.GetEquipments().ToList().Select(m => _modelFactory.Create(m));
             return equipments;
         }
 

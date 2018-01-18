@@ -1,4 +1,5 @@
 ﻿using GymLog.API.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -38,6 +39,9 @@ namespace GymLog.API.Providers
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
+
+            //oAuthIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
@@ -53,6 +57,7 @@ namespace GymLog.API.Providers
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
+            context.AdditionalResponseParameters.Add("UserID", context.Identity.GetUserId());     //dodanie ID do tokena
 
             return Task.FromResult<object>(null);
         }
