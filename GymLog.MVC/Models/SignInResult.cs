@@ -23,7 +23,7 @@ namespace GymLog.MVC.Models
         [JsonProperty(".expires")]
         public DateTimeOffset Expires { get; set; }
 
-        [JsonProperty("UserID")]
+        [JsonProperty("userID")]
         public string UserID { get; set; }
     }
 }

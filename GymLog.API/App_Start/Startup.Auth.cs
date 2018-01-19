@@ -20,8 +20,12 @@ namespace GymLog.API
             app.CreatePerOwinContext(GymLogContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                CookieHttpOnly = true,
+                CookieName = "Gymlog.WebApi.Auth"
+            });
 
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions

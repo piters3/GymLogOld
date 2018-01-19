@@ -37,15 +37,13 @@ namespace GymLog.API.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
 
             //oAuthIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
 
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
+            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.Email, user.Id);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -57,7 +55,7 @@ namespace GymLog.API.Providers
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
-            context.AdditionalResponseParameters.Add("UserID", context.Identity.GetUserId());     //dodanie ID do tokena
+            //context.AdditionalResponseParameters.Add("UserID", context.Identity.GetUserId());     //dodanie ID do tokena
 
             return Task.FromResult<object>(null);
         }
@@ -88,11 +86,12 @@ namespace GymLog.API.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userName, string email, string userID)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                { "userName", userName },
+                { "userID", userID }
             };
             return new AuthenticationProperties(data);
         }

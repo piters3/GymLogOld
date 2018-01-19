@@ -206,6 +206,7 @@
     <Compile Include="Models\ExerciseModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\MuscleModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WorkoutModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
