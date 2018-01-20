@@ -38,36 +38,11 @@ namespace GymLog.MVC.Controllers
             if (ModelState.IsValid)
             {
                 await ClientHelper.Instance.PostAsync("/api/Muscles", model, User.Identity.Name);
-                TempData["message"] = string.Format("Książka została dodana!");
+                TempData["message"] = string.Format("Mięsień został dodany!");
                 return RedirectToAction("Index");
             }
-            ModelState.AddModelError("", "Zjebało się");
+            ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
         }
-
-
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create2(Book book, HttpPostedFileBase image = null)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Books.Add(book);
-        //        if (image != null)
-        //        {
-        //            book.ImageMimeType = image.ContentType;
-        //            book.ImageData = new byte[image.ContentLength];
-        //            image.InputStream.Read(book.ImageData, 0, image.ContentLength);
-        //        }
-        //        db.SaveChanges();
-        //        TempData["message"] = string.Format("Książka została dodana!");
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", book.CategoryId);
-        //    ModelState.AddModelError("", "Zjebało się");
-        //    return View(book);
-        //}
     }
 }

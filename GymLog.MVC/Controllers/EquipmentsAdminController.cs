@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace GymLog.MVC.Controllers
 {
+    [Authorize]
     public class EquipmentsAdminController : BaseApiController
     {
         public async Task<ActionResult> Index()
@@ -22,6 +23,26 @@ namespace GymLog.MVC.Controllers
                 return View();
             }
 
+        }
+
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(EquipmentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await ClientHelper.Instance.PostAsync("/api/Equipments", model, User.Identity.Name);
+                TempData["message"] = string.Format("Sprzęt został dodany!");
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Popraw błędy formularza");
+            return View(model);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿<ul class="nav navbar-nav navbar-right">
     @if (User.Identity.IsAuthenticated)
     {
-        <li class="nav-item">@Html.ActionLink("Wyloguj się", "Logout", "Account", null, new { @class = "nav-link" })</li>
         <li class="nav-item">@Html.ActionLink("Zarządzanie kontem", "Manage", "Account", null, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Wyloguj się", "Logout", "Account", null, new { @class = "nav-link" })</li>
     }
     else
     {

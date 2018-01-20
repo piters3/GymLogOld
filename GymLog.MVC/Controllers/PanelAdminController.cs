@@ -2,6 +2,7 @@
 
 namespace GymLog.MVC.Controllers
 {
+    [Authorize]
     public class PanelAdminController : Controller
     {
         public ActionResult Index()

@@ -5,79 +5,68 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title | Panel Administratora</title>
-    @Styles.Render("~/Content/Admin/css")
+    @Styles.Render("~/AdminCSS")
 </head>
-<body class="sidebar-mini fixed">
-    <div class="wrapper">
-        <header class="main-header hidden-print">
-            <a class="logo" href="@Url.Action("Index", "Home")">GymLog</a>
-            <nav class="navbar navbar-static-top">
-                <a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
-                <div class="navbar-custom-menu">
-                    <ul class="top-nav">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
-                            <ul class="dropdown-menu settings-menu">
-                                @if (Request.IsAuthenticated) {
-                                    <li><a href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
-                                    <li><a href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-                                        @Html.AntiForgeryToken()
-                                    }
-                                    <li>  <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-lg"></i>Wyloguj</a></li>
-                                }
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <aside class="main-sidebar hidden-print">
-            <section class="sidebar">
-                <div class="user-panel">
-                    @*<div class="pull-left image"><img class="img-circle" src="@Url.Action("GetImage", "Home" )" alt="Avatar"></div>*@
-                    @*<div class="pull-left info">*@
-                        @*<p>@User.Identity.Name</p>*@
-                        <p>Admin</p>
-                        <p class="designation">Administrator</p>
-                    @*</div>*@
-                </div>
-                <ul class="sidebar-menu">
-                    <li class="@Html.IsActive("Index", "PanelAdmin")"><a href="@Url.Action("Index","PanelAdmin")"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
-                    <li class="@Html.IsActive("Index", "UsersAdmin")"><a href="@Url.Action("Index", "UsersAdmin")"><i class="fa fa-users"></i><span>Użytkownicy</span></a></li>
-                    <li class="@Html.IsActive("Index", "MusclesAdmin")"><a href="@Url.Action("Index", "MusclesAdmin")"><i class="fa fa-users"></i><span>Mięśnie</span></a></li>
-                    <li class="@Html.IsActive("Index", "EquipmentsAdmin")"><a href="@Url.Action("Index", "EquipmentsAdmin")"><i class="fa fa-users"></i><span>Sprzęt</span></a></li>
-                    @*<li class="treeview">
-            <a href="#"><i class="fa fa-handshake-o"></i><span>Wypożyczenia</span><i class="fa fa-angle-right"></i></a>
-            <ul class="treeview-menu">
-                <li class="@Html.IsActive("All", "LendingsAdmin")"><a href="@Url.Action("All", "LendingsAdmin")"><i class="fa fa-exchange"></i><span>Wszystkie</span></a></li>
-                <li class="@Html.IsActive("Active", "LendingsAdmin")"><a href="@Url.Action("Active", "LendingsAdmin")"><i class="fa fa-heart"></i><span>Aktywne</span></a></li>
-                <li class="@Html.IsActive("Archive", "LendingsAdmin")"><a href="@Url.Action("Archive", "LendingsAdmin")"><i class="fa fa-archive"></i><span>Archiwum</span></a></li>
-            </ul>
-        </li>*@
+<body class="app sidebar-mini">
+    <header class="app-header">
+        <a class="app-header__logo" href="@Url.Action("Index","Home")">GymLog</a>
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"></a>
+        <ul class="app-nav">
+            <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Logout","Account")"><i class="fa fa-sign-out fa-lg"></i> Wyloguj się</a></li>
                 </ul>
-            </section>
-        </aside>
-        <div class="content-wrapper">
-            <div class="page-title">
-                @RenderSection("Breadcrumb", required: false)
-            </div>
-            <div class="row">
-                @if (TempData["message"] != null) {
-                    <div class="alert alert-dismissible alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Świetnie!</strong> @TempData["message"]
-                    </div>
-                }
-                @RenderBody()
+            </li>
+        </ul>
+    </header>
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+            <div>
+                <p class="app-sidebar__user-name">John Doe</p>
+                <p class="app-sidebar__user-designation">Frontend Developer</p>
             </div>
         </div>
-    </div>
+        <ul class="app-menu">
+            <li><a class="app-menu__item @Html.IsActive("Index", "PanelAdmin")" href="@Url.Action("Index","PanelAdmin")"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+            <li><a class="app-menu__item @Html.IsActive("Index", "UsersAdmin")" href="@Url.Action("Index","UsersAdmin")"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Użytkownicy</span></a></li>
+            <li><a class="app-menu__item @Html.IsActive("Index", "MusclesAdmin")" href="@Url.Action("Index","MusclesAdmin")"><i class="app-menu__icon fa fa-puzzle-piece"></i><span class="app-menu__label">Mięśnie</span></a></li>
+            <li><a class="app-menu__item @Html.IsActive("Index", "EquipmentsAdmin")" href="@Url.Action("Index","EquipmentsAdmin")"><i class="app-menu__icon fa fa-cogs"></i><span class="app-menu__label">Sprzęt</span></a></li>
+        </ul>
+    </aside>
+    <main class="app-content">
+        @RenderSection("Breadcrumb", required: false)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        @if (TempData["message"] != null)
+                        {
+                            <div class="alert alert-dismissible alert-success">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Świetnie!</strong> @TempData["message"]
+                            </div>
 
-    @Scripts.Render("~/bundles/admin/jquery")
-    @Scripts.Render("~/bundles/admin/bootstrap")
-    @Scripts.Render("~/bundles/admin/main")
-    @Scripts.Render("~/bundles/admin/pace")
+                        }
+                        @if (TempData["error"] != null)
+                        {
+                            <div class="alert alert-dismissible alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Niestety!</strong> @TempData["error"]
+                            </div>
+                        }
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    @Scripts.Render("~/AdminJS")
     @RenderSection("scripts", required: false)
 
 </body>
