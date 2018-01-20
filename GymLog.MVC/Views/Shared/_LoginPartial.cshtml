@@ -1,12 +1,12 @@
 ﻿<ul class="nav navbar-nav navbar-right">
     @if (User.Identity.IsAuthenticated)
     {
-        <li>@Html.ActionLink("Wyloguj się", "Logout", "Account")</li>
-        @Html.ActionLink("Zarządzanie kontem", "Manage", "Account")
+        <li class="nav-item">@Html.ActionLink("Wyloguj się", "Logout", "Account", null, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Zarządzanie kontem", "Manage", "Account", null, new { @class = "nav-link" })</li>
     }
     else
     {
-        <li>@Html.ActionLink("Rejestracja", "Register", "Account")</li>
-        <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
+        <li class="nav-item">@Html.ActionLink("Rejestracja", "Register", "Account", null, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Zaloguj się", "Login", "Account", null, new { @class = "nav-link" })</li>
     }
 </ul>

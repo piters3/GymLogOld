@@ -14,7 +14,7 @@ using System.Web.Security;
 
 namespace GymLog.MVC.Controllers
 {
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         public ActionResult Login(string returnUrl)
         {
@@ -32,7 +32,6 @@ namespace GymLog.MVC.Controllers
 
             try
             {
-
                 var result = await ClientHelper.Instance.AuthenticateAsync<SignInResult>(model.UserName, model.Password);
 
                 FormsAuthentication.SetAuthCookie(result.AccessToken, model.RememberMe);
@@ -65,7 +64,6 @@ namespace GymLog.MVC.Controllers
             }
             catch (ApiException ex)
             {
-                //No 200 OK result, what went wrong?
                 HandleBadRequest(ex);
 
                 if (!ModelState.IsValid)
@@ -126,7 +124,7 @@ namespace GymLog.MVC.Controllers
         {
             try
             {
-                var userInfo = await ClientHelper.Instance.GetAsync<UserInfoModel>("/api/Account/UserInfo", User.Identity.Name);
+                var userInfo = await ClientHelper.Instance.GetAsync<UserViewModel>("/api/Account/UserInfo", User.Identity.Name);
                 return View(userInfo);
             }
             catch (ApiException ex)

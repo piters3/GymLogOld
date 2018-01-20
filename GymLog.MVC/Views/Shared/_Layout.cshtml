@@ -2,49 +2,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title | Biblioteka</title>
-    @Styles.Render("~/Content/css")
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="GymLog MVC Client">
+    <meta name="author" content="Pioter">
+    <title>@ViewBag.Title | GymLog</title>
+    @Styles.Render("~/UserCSS")
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="@Url.Action("Index", "Home")">
-                    @*<img src="~/Content/Img/logo.png" />*@
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="@Html.IsActive("Index", "Announcements")">@Html.ActionLink("Aktualności", "Index", "Announcements")</li>
-                    @if (Request.IsAuthenticated && User.IsInRole("admin"))
-                    {
-                        <li class="@Html.IsActive("Index", "PanelAdmin")">@Html.ActionLink("Panel administratora", "Index", "PanelAdmin")</li>
-                    }
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li class="@Html.IsActive("Ask", "Contact")">@Html.ActionLink("Zadaj pytanie", "Ask", "Contact")</li>
-                    }
-                    <li class="@Html.IsActive("Chat", "Home")">@Html.ActionLink("Chat", "Chat", "Home")</li>
-                    <li class="@Html.IsActive("Index", "Catalog")">@Html.ActionLink("Katalog", "Index", "Catalog")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">GymLog</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item @Html.IsActive("Index", "Home")">@Html.ActionLink("Strona główna", "Index", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item @Html.IsActive("Index", "PanelAdmin")">@Html.ActionLink("Panel administratora", "Index", "PanelAdmin", null, new { @class = "nav-link" })</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </nav>
-
-    <div class="container callaction">
-        <div class="row">
-            <div class="col-md-12">
+    <div class="container">
+        <div class="col">
+            <div class="row">
                 @if (TempData["message"] != null)
                 {
                     <div class="alert alert-dismissible alert-success">
@@ -64,29 +45,23 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="text-left">
-                            <p>&copy;Copyright - Pioter</p>
-                        </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="text-left">
+                        <p>&copy; @DateTime.Now.Year Piotr Strzelecki</p>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="text-right">
-                            @DateTime.Now.Year - Biblioteka Piotera
-                        </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="text-right">
+                        GymLog
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/UserJS")
     @RenderSection("scripts", required: false)
-
 </body>
 </html>
