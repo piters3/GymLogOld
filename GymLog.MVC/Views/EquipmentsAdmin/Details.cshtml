@@ -1,0 +1,39 @@
+﻿@model GymLog.MVC.Models.EquipmentViewModel
+
+@{
+    ViewBag.Title = "Szczegóły sprzętu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Breadcrumb{
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-puzzle-piece"></i> @ViewBag.Title</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "PanelAdmin")"><i class="fa fa-home fa-lg"></i></a></li>
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "EquipmentsAdmin")">Sprzęt</a></li>
+            <li class="breadcrumb-item">@ViewBag.Title</li>
+        </ul>
+    </div>
+}
+
+<div class="col-md-6">
+    <div class="tile">
+        <div class="tile-title-w-btn">
+            <h3 class="title">@ViewBag.Title</h3>
+            <div class="btn-group text-right">
+                <a class="btn btn-primary" href="@Url.Action("Edit", "EquipmentsAdmin", new { id = Model.Id })"><i class="fa fa-lg fa-edit"></i></a>
+                <a class="btn btn-primary" href="@Url.Action("Delete", "EquipmentsAdmin", new { id = Model.Id })"><i class="fa fa-lg fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="tile-body">
+            <b> @Html.DisplayNameFor(model => model.Id) </b><br>
+            @Html.DisplayFor(model => model.Id)
+        </div>
+        <div class="tile-body">
+            <b> @Html.DisplayNameFor(model => model.Name) </b><br>
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    </div>
+</div>

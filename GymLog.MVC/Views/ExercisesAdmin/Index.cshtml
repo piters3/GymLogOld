@@ -1,6 +1,6 @@
-﻿@model IEnumerable<GymLog.MVC.Models.MuscleViewModel>
+﻿@model IEnumerable<GymLog.MVC.Models.ExerciseViewModel>
 @{
-    ViewBag.Title = "Mięśnie";
+    ViewBag.Title = "Ćwiczenia";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -9,8 +9,8 @@
 @section Breadcrumb{
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-puzzle-piece"></i> @ViewBag.Title</h1>
-            <p>Zarządzanie mięśniami</p>
+            <h1><i class="fa fa-bicycle"></i> @ViewBag.Title</h1>
+            <p>Zarządzanie ćwiczeniami</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"> <a href="@Url.Action("Index", "PanelAdmin")"><i class="fa fa-home fa-lg"></i></a></li>
@@ -21,7 +21,7 @@
 
 <div class="col-12">
     <div class="tile">
-        <a href="@Url.Action("Create", "MusclesAdmin")"><i class="fa fa-plus fa-lg"></i> Nowy mięsień</a>
+        <a href="@Url.Action("Create", "ExercisesAdmin")"><i class="fa fa-plus fa-lg"></i> Nowe ćwiczenie</a>
         <table class="table table-hover table-bordered" id="itemsTable">
             <thead>
                 <tr class="text-center">
@@ -30,6 +30,9 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
                     </th>
                     <th>
                         Akcje
@@ -46,10 +49,13 @@
                         <td>
                             @item.Name
                         </td>
+                        <td>
+                            @item.Description
+                        </td>
                         <td class="text-center">
-                            <a href="@Url.Action("Details", "MusclesAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>
-                            <a href="@Url.Action("Edit", "MusclesAdmin", new { id = item.Id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
-                            <a href="@Url.Action("Delete", "MusclesAdmin", new { id = item.Id })"><i class="fa fa-trash fa-lg"></i></a>
+                            <a href="@Url.Action("Details", "ExercisesAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>
+                            <a href="@Url.Action("Edit", "ExercisesAdmin", new { id = item.Id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                            <a href="@Url.Action("Delete", "ExercisesAdmin", new { id = item.Id })"><i class="fa fa-trash fa-lg"></i></a>
                         </td>
                     </tr>
                 }
@@ -64,7 +70,8 @@
         $('#itemsTable').DataTable({
             "columns": [
                 { "width": "10%" },
-                { "width": "80%" },
+                { "width": "30%" },
+                { "width": "50%" },
                 { "width": "10%" }
             ]
         });</script>

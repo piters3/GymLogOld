@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\EquipmentsAdminController.cs" />
+    <Compile Include="Controllers\ExercisesAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MusclesAdminController.cs" />
     <Compile Include="Controllers\PanelAdminController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\EquipmentViewModel.cs" />
+    <Compile Include="Models\ExerciseViewModel.cs" />
     <Compile Include="Models\JsonBadRequest.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MuscleViewModel.cs" />
@@ -199,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -212,6 +215,15 @@
     <Content Include="Scripts\User\tether.min.js" />
     <Content Include="Views\EquipmentsAdmin\Create.cshtml" />
     <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\MusclesAdmin\Details.cshtml" />
+    <Content Include="Views\EquipmentsAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\MusclesAdmin\Edit.cshtml" />
+    <Content Include="Views\MusclesAdmin\Delete.cshtml" />
+    <Content Include="Views\EquipmentsAdmin\Edit.cshtml" />
+    <Content Include="Views\EquipmentsAdmin\Delete.cshtml" />
+    <Content Include="Views\ExercisesAdmin\Index.cshtml" />
+    <Content Include="Views\ExercisesAdmin\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

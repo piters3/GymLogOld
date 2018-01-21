@@ -107,6 +107,27 @@ namespace GymLog.MVC.Helpers
             }
         }
 
+        public async Task DeleteAsync<T>(string action, string authToken = null)
+        {
+            using (var client = new HttpClient())
+            {
+                if (!authToken.IsNullOrWhiteSpace())
+                {
+                    client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse("Bearer " + authToken);
+                }
+
+                var result = await client.DeleteAsync(BuildActionUri(action));
+                if (result.IsSuccessStatusCode)
+                {
+                    return;
+                }
+
+                string json = await result.Content.ReadAsStringAsync();
+                throw new ApiException(result.StatusCode, json);
+            }
+        }
+
+
         private string BuildActionUri(string action)
         {
             return BaseUri + action;

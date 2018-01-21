@@ -18,94 +18,95 @@
         </ul>
     </div>
 }
-
-<a href="@Url.Action("Create", "UsersAdmin")"><i class="fa fa-plus fa-lg"></i> Nowy użytkownik</a>
-
-<table class="table table-hover table-bordered" id="itemsTable">
-    <thead>
-        <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                Nick
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                Status emaila
-            </th>
-            <th>
-                Numer telefonu
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-                </th>*@
-            <th>
-                Stan blokady
-            </th>
-            <th>
-                Akcje
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="text-center">
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                    @item.UserName
-                </td>
-                <td>
-                    @item.Email
-                </td>
-                <td>
-                    @if (item.EmailConfirmed == true)
-                    {
-                        <span class="badge badge-success">Aktywowany</span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-danger">Nieaktywowany</span>
-                    }
-                </td>
-                <td>
-                    @if (item.PhoneNumber == null)
-                    {
-                        <span class="badge badge-warning">Brak</span>
-                    }
-                    else
-                    {
-                        @item.PhoneNumber
-                    }
-                </td>
-                @*<td>
-                        @item.PhoneNumberConfirmed
-                    </td>*@
-                <td>
-                    @if (item.LockoutEnabled == true)
-                    {
-                        <span class="badge badge-danger">Włączona</span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-success">Wyłączona</span>
-                    }
-                </td>
-                <td class="text-center">
-                    <a href="@Url.Action("Details", "UsersAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>
-                    <a href="@Url.Action("Edit", "UsersAdmin", new { id = item.Id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
-                    <a href="@Url.Action("Delete", "UsersAdmin", new { id = item.Id })"><i class="fa fa-trash fa-lg"></i></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<div class="col-md-12">
+    <div class="tile">
+        <a href="@Url.Action("Create", "UsersAdmin")"><i class="fa fa-plus fa-lg"></i> Nowy użytkownik</a>
+        <table class="table table-hover table-bordered" id="itemsTable">
+            <thead>
+                <tr class="text-center">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        Nick
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        Status emaila
+                    </th>
+                    <th>
+                        Numer telefonu
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+                        </th>*@
+                    <th>
+                        Stan blokady
+                    </th>
+                    <th>
+                        Akcje
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.UserName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @if (item.EmailConfirmed == true)
+                            {
+                                <span class="badge badge-success">Aktywowany</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Nieaktywowany</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.PhoneNumber == null)
+                            {
+                                <span class="badge badge-warning">Brak</span>
+                            }
+                            else
+                            {
+                                @item.PhoneNumber
+                            }
+                        </td>
+                        @*<td>
+                                @item.PhoneNumberConfirmed
+                            </td>*@
+                        <td>
+                            @if (item.LockoutEnabled == true)
+                            {
+                                <span class="badge badge-danger">Włączona</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">Wyłączona</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Details", "UsersAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>
+                            <a href="@Url.Action("Edit", "UsersAdmin", new { id = item.Id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                            <a href="@Url.Action("Delete", "UsersAdmin", new { id = item.Id })"><i class="fa fa-trash fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/DatatablesJS")
     <script type="text/javascript">$('#itemsTable').DataTable();</script>

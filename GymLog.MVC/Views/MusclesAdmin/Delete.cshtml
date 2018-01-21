@@ -1,0 +1,42 @@
+﻿@model GymLog.MVC.Models.MuscleViewModel
+
+@{
+    ViewBag.Title = "Usuwanie mięśnia";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Breadcrumb{
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-puzzle-piece"></i> @ViewBag.Title</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "PanelAdmin")"><i class="fa fa-home fa-lg"></i></a></li>
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "MusclesAdmin")">Mięśnie</a></li>
+            <li class="breadcrumb-item">@ViewBag.Title</li>
+        </ul>
+    </div>
+}
+
+<div class="col-md-6">
+    <div class="tile">
+        <h3 class="title">Jesteś pewny, że chcesz usunąć ten mięsień?</h3>
+        <div class="tile-body">
+            <b> @Html.DisplayNameFor(model => model.Id) </b><br>
+            @Html.DisplayFor(model => model.Id)
+        </div>
+        <div class="tile-body">
+            <b> @Html.DisplayNameFor(model => model.Name) </b><br>
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-danger" /> |
+                @Html.ActionLink("Powrót do listy", "Index")
+            </div>
+        }
+    </div>
+</div>

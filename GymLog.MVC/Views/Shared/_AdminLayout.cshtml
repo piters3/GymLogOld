@@ -36,33 +36,32 @@
             <li><a class="app-menu__item @Html.IsActive("Index", "UsersAdmin")" href="@Url.Action("Index","UsersAdmin")"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Użytkownicy</span></a></li>
             <li><a class="app-menu__item @Html.IsActive("Index", "MusclesAdmin")" href="@Url.Action("Index","MusclesAdmin")"><i class="app-menu__icon fa fa-puzzle-piece"></i><span class="app-menu__label">Mięśnie</span></a></li>
             <li><a class="app-menu__item @Html.IsActive("Index", "EquipmentsAdmin")" href="@Url.Action("Index","EquipmentsAdmin")"><i class="app-menu__icon fa fa-cogs"></i><span class="app-menu__label">Sprzęt</span></a></li>
+            <li><a class="app-menu__item @Html.IsActive("Index", "ExercisesAdmin")" href="@Url.Action("Index","ExercisesAdmin")"><i class="app-menu__icon fa fa-bicycle"></i><span class="app-menu__label">Ćwiczenia</span></a></li>
         </ul>
     </aside>
     <main class="app-content">
         @RenderSection("Breadcrumb", required: false)
         <div class="row">
-            <div class="col-md-12">
-                <div class="tile">
-                    <div class="tile-body">
-                        @if (TempData["message"] != null)
-                        {
-                            <div class="alert alert-dismissible alert-success">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Świetnie!</strong> @TempData["message"]
-                            </div>
-
-                        }
-                        @if (TempData["error"] != null)
-                        {
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Niestety!</strong> @TempData["error"]
-                            </div>
-                        }
-                        @RenderBody()
+            @if (TempData["message"] != null)
+            {
+                <div class="col-md-12">
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Świetnie!</strong> @TempData["message"]
                     </div>
                 </div>
-            </div>
+
+            }
+            @if (TempData["error"] != null)
+            {
+                <div class="col-md-12">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Niestety!</strong> @TempData["error"]
+                    </div>
+                </div>
+            }
+            @RenderBody()
         </div>
     </main>
 
