@@ -1,7 +1,7 @@
 ﻿@model GymLog.MVC.Models.ExerciseViewModel
 
 @{
-    ViewBag.Title = "Szczegóły ćwiczenia";
+    ViewBag.Title = "Usuwanie ćwiczenia";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -20,13 +20,7 @@
 
 <div class="col-md-6">
     <div class="tile">
-        <div class="tile-title-w-btn">
-            <h3 class="title">@ViewBag.Title</h3>
-            <div class="btn-group text-right">
-                <a class="btn btn-primary" href="@Url.Action("Edit", "ExercisesAdmin", new { id = Model.Id })"><i class="fa fa-lg fa-edit"></i></a>
-                <a class="btn btn-primary" href="@Url.Action("Delete", "ExercisesAdmin", new { id = Model.Id })"><i class="fa fa-lg fa-trash"></i></a>
-            </div>
-        </div>
+        <h3 class="title">Jesteś pewny, że chcesz usunąć to ćwiczenie?</h3>
         <div class="tile-body">
             <b> @Html.DisplayNameFor(model => model.Id) </b><br>
             @Html.DisplayFor(model => model.Id)
@@ -40,12 +34,21 @@
             @Html.DisplayFor(model => model.Description)
         </div>
         <div class="tile-body">
-            <b> @Html.DisplayNameFor(model => model.Equipment) </b><br>
+            <b> @Html.DisplayNameFor(model => model.Equipment.Name) </b><br>
             @Html.DisplayFor(model => model.Equipment.Name)
         </div>
         <div class="tile-body">
-            <b> @Html.DisplayNameFor(model => model.Muscle) </b><br>
+            <b> @Html.DisplayNameFor(model => model.Muscle.Name) </b><br>
             @Html.DisplayFor(model => model.Muscle.Name)
         </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-danger" /> |
+                @Html.ActionLink("Powrót do listy", "Index")
+            </div>
+        }
     </div>
 </div>

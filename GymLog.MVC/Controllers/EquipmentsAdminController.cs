@@ -38,9 +38,17 @@ namespace GymLog.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                await ClientHelper.Instance.PostAsync("/api/equipments", model, User.Identity.Name);
-                TempData["message"] = string.Format("Sprzęt został dodany!");
-                return RedirectToAction("Index");
+                try
+                {
+                    await ClientHelper.Instance.PostAsync("/api/equipments", model, User.Identity.Name);
+                    TempData["message"] = string.Format("Sprzęt został dodany!");
+                    return RedirectToAction("Index");
+                }
+                catch (ApiException ex)
+                {
+                    HandleBadRequest(ex);
+                }
+
             }
             ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
@@ -53,7 +61,6 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             try
             {
                 var eq = await ClientHelper.Instance.GetAsync<EquipmentViewModel>($"/api/equipments/{id}", User.Identity.Name);
@@ -77,12 +84,20 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var eq = await ClientHelper.Instance.GetAsync<EquipmentViewModel>($"/api/equipments/{id}", User.Identity.Name);
-            if (eq == null)
+            try
             {
-                return HttpNotFound();
+                var eq = await ClientHelper.Instance.GetAsync<EquipmentViewModel>($"/api/equipments/{id}", User.Identity.Name);
+                if (eq == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(eq);
             }
-            return View(eq);
+            catch (ApiException ex)
+            {
+                HandleBadRequest(ex);
+                return View();
+            }
         }
 
         [HttpPost]
@@ -91,9 +106,17 @@ namespace GymLog.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                await ClientHelper.Instance.PutAsync($"/api/equipments/{model.Id}", model, User.Identity.Name);
-                TempData["message"] = string.Format("Sprzęt został zedytowany!");
-                return RedirectToAction("Index");
+                try
+                {
+                    await ClientHelper.Instance.PutAsync($"/api/equipments/{model.Id}", model, User.Identity.Name);
+                    TempData["message"] = string.Format("Sprzęt został zedytowany!");
+                    return RedirectToAction("Index");
+                }
+                catch (ApiException ex)
+                {
+                    HandleBadRequest(ex);
+                    return View();
+                }
             }
             ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
@@ -106,12 +129,20 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var eq = await ClientHelper.Instance.GetAsync<EquipmentViewModel>($"/api/equipments/{id}", User.Identity.Name);
-            if (eq == null)
+            try
             {
-                return HttpNotFound();
+                var eq = await ClientHelper.Instance.GetAsync<EquipmentViewModel>($"/api/equipments/{id}", User.Identity.Name);
+                if (eq == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(eq);
             }
-            return View(eq);
+            catch (ApiException ex)
+            {
+                HandleBadRequest(ex);
+                return View();
+            }
         }
 
 

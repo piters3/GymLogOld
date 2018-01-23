@@ -5,7 +5,6 @@ namespace GymLog.API.Entities {
 
         public Exercise() {
             Workouts = new List<Workout>();
-            Muscles = new List<Muscle>();
         }
 
         public int Id { get; set; }
@@ -13,8 +12,9 @@ namespace GymLog.API.Entities {
         public string Description { get; set; }
 
         public int EquipmentId { get; set; }
+        public int MuscleId { get; set; }
 
-        public virtual List<Muscle> Muscles { get; set; }
+        public virtual Muscle Muscle { get; set; }
         public virtual Equipment Equipment { get; set; }
         public virtual List<Workout> Workouts { get; set; }
     }

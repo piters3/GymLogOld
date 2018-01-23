@@ -10,7 +10,7 @@ namespace GymLog.API.Entities {
         public int Id { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
-        public int Rest { get; set; }
+        public int Weight { get; set; }
 
         public string UserId { get; set; }
         public int ExerciseId { get; set; }

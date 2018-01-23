@@ -25,10 +25,10 @@
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
         <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+            <img class="app-sidebar__user-avatar" src="~/Content/Admin/Img/pioter.jpg" alt="User Image">
             <div>
-                <p class="app-sidebar__user-name">John Doe</p>
-                <p class="app-sidebar__user-designation">Frontend Developer</p>
+                <p class="app-sidebar__user-name">Piotr Strzelecki</p>
+                <p class="app-sidebar__user-designation">.Net Developer</p>
             </div>
         </div>
         <ul class="app-menu">
@@ -37,6 +37,7 @@
             <li><a class="app-menu__item @Html.IsActive("Index", "MusclesAdmin")" href="@Url.Action("Index","MusclesAdmin")"><i class="app-menu__icon fa fa-puzzle-piece"></i><span class="app-menu__label">Mięśnie</span></a></li>
             <li><a class="app-menu__item @Html.IsActive("Index", "EquipmentsAdmin")" href="@Url.Action("Index","EquipmentsAdmin")"><i class="app-menu__icon fa fa-cogs"></i><span class="app-menu__label">Sprzęt</span></a></li>
             <li><a class="app-menu__item @Html.IsActive("Index", "ExercisesAdmin")" href="@Url.Action("Index","ExercisesAdmin")"><i class="app-menu__icon fa fa-bicycle"></i><span class="app-menu__label">Ćwiczenia</span></a></li>
+            <li><a class="app-menu__item @Html.IsActive("Index", "WorkoutsAdmin")" href="@Url.Action("Index","WorkoutsAdmin")"><i class="app-menu__icon fa fa-handshake-o "></i><span class="app-menu__label">Treningi</span></a></li>
         </ul>
     </aside>
     <main class="app-content">

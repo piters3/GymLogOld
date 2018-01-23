@@ -32,7 +32,7 @@ namespace GymLog.API.Models
                 Id = ex.Id,
                 Name = ex.Name,
                 Description = ex.Description,
-                Muscles = ex.Muscles.Select(m => Create(m)),
+                Muscle = Create(ex.Muscle),
                 Equipment = Create(ex.Equipment)
             };
         }
@@ -70,7 +70,7 @@ namespace GymLog.API.Models
                 Id = w.Id,
                 Reps = w.Reps,
                 Sets = w.Sets,
-                Rest = w.Rest,
+                Weight = w.Weight,
                 UserId = w.UserId,
                 //User = Create(w.User), //Odrzuca połączenie
                 Exercise = Create(w.Exercise)

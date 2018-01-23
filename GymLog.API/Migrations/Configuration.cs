@@ -71,7 +71,7 @@ namespace GymLog.API.Migrations
                 new Muscle() { Name = "Brzuch" },
                 new Muscle() { Name = "Plecy" },
                 new Muscle() { Name = "Przedramiê" },
-                new Muscle() { Name = "Udo" },
+                new Muscle() { Name = "Uda" },
                 new Muscle() { Name = "Poœladki" },
                 new Muscle() { Name = "£ydki" },
                 new Muscle() { Name = "Cardio" }
@@ -93,24 +93,24 @@ namespace GymLog.API.Migrations
             equipments.ForEach(m => context.Equipments.AddOrUpdate(x => x.Name, m));
             context.SaveChanges();
 
-            var klata = new List<Muscle>
-            {
-                muscles.Where(m => m.Name == "Klatka piersiowa").FirstOrDefault(),
-                muscles.Where(m => m.Name == "Barki").FirstOrDefault()
-            };
-            var przysiady = new List<Muscle>
-            {
-                muscles.Where(m => m.Name == "Udo").FirstOrDefault(),
-                muscles.Where(m => m.Name == "Poœladki").FirstOrDefault(),
-                muscles.Where(m => m.Name == "£ydki").FirstOrDefault()
-            };
+            //var klata = new List<Muscle>
+            //{
+            //    muscles.Where(m => m.Name == "Klatka piersiowa").FirstOrDefault(),
+            //    muscles.Where(m => m.Name == "Barki").FirstOrDefault()
+            //};
+            //var przysiady = new List<Muscle>
+            //{
+            //    muscles.Where(m => m.Name == "Udo").FirstOrDefault(),
+            //    muscles.Where(m => m.Name == "Poœladki").FirstOrDefault(),
+            //    muscles.Where(m => m.Name == "£ydki").FirstOrDefault()
+            //};
 
 
             var exercises = new List<Exercise>
             {
-                new Exercise() { Name = "Wyciskanie sztangi le¿¹c", Description = "Bla bla bla", Muscles = new List<Muscle>(klata) ,Equipment = equipments.Single(m=>m.Name=="£awka prosta")},
-                new Exercise() { Name = "Przysiady", Description = "Bla bla bla", Muscles = new List<Muscle>(przysiady), Equipment = equipments.Single(m=>m.Name=="Suwnica")},
-                new Exercise() { Name = "Podci¹ganie", Description = "Bla bla bla", Muscles = new List<Muscle>(muscles.Where(m=>m.Name=="Plecy")), Equipment = equipments.Single(m=>m.Name=="Dr¹¿ek")},
+                new Exercise() { Name = "Wyciskanie sztangi le¿¹c", Description = "Bla bla bla", Muscle = muscles.Single(m=>m.Name=="Klatka piersiowa") ,Equipment = equipments.Single(m=>m.Name=="£awka prosta")},
+                new Exercise() { Name = "Przysiady", Description = "Bla bla bla", Muscle = muscles.Single(m=>m.Name=="Uda"), Equipment = equipments.Single(m=>m.Name=="Suwnica")},
+                new Exercise() { Name = "Podci¹ganie", Description = "Bla bla bla", Muscle = muscles.Single(m=>m.Name=="Plecy"), Equipment = equipments.Single(m=>m.Name=="Dr¹¿ek")},
             };
             exercises.ForEach(m => context.Exercises.AddOrUpdate(x => x.Name, m));
             context.SaveChanges();
@@ -118,11 +118,11 @@ namespace GymLog.API.Migrations
 
 
             var workouts = new List<Workout> {
-                new Workout(){ Id = 1, Sets = 1, Reps = 8, Rest = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Wyciskanie sztangi le¿¹c") },
-                new Workout(){ Id = 2, Sets = 2, Reps = 12, Rest = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Przysiady") },
-                new Workout(){ Id = 3, Sets = 3, Reps = 14, Rest = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Wyciskanie sztangi le¿¹c") },
-                new Workout(){ Id = 4, Sets = 4, Reps = 16, Rest = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Podci¹ganie") },
-                new Workout(){ Id = 5, Sets = 5, Reps = 18, Rest = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Wyciskanie sztangi le¿¹c") },
+                new Workout(){ Id = 1, Sets = 5, Reps = 5, Weight = 70, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Wyciskanie sztangi le¿¹c") },
+                new Workout(){ Id = 2, Sets = 5, Reps = 4, Weight = 85, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Przysiady") },
+                new Workout(){ Id = 3, Sets = 3, Reps = 14, Weight = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Wyciskanie sztangi le¿¹c") },
+                new Workout(){ Id = 4, Sets = 5, Reps = 5, Weight = 5, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Podci¹ganie") },
+                new Workout(){ Id = 5, Sets = 5, Reps = 18, Weight = 90, UserId = context.Users.FirstOrDefault().Id, Exercise= exercises.Single(m=>m.Name=="Wyciskanie sztangi le¿¹c") },
                 };
             workouts.ForEach(m => context.Workouts.AddOrUpdate(x => x.Id, m));
             context.SaveChanges();

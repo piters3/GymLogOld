@@ -139,6 +139,7 @@
     <Compile Include="Controllers\MusclesAdminController.cs" />
     <Compile Include="Controllers\PanelAdminController.cs" />
     <Compile Include="Controllers\UsersAdminController.cs" />
+    <Compile Include="Controllers\WorkoutsAdminController.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,11 +155,13 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SignInResult.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WorkoutViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\dataTables.bootstrap4.min.css" />
     <Content Include="Content\Admin\font-awesome.min.css" />
+    <Content Include="Content\Admin\Img\pioter.jpg" />
     <Content Include="Content\Admin\main.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\User\bootstrap.min.css" />
@@ -224,6 +227,10 @@
     <Content Include="Views\EquipmentsAdmin\Delete.cshtml" />
     <Content Include="Views\ExercisesAdmin\Index.cshtml" />
     <Content Include="Views\ExercisesAdmin\Details.cshtml" />
+    <Content Include="Views\ExercisesAdmin\Create.cshtml" />
+    <Content Include="Views\ExercisesAdmin\Edit.cshtml" />
+    <Content Include="Views\ExercisesAdmin\Delete.cshtml" />
+    <Content Include="Views\WorkoutsAdmin\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

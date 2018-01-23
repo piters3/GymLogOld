@@ -23,7 +23,6 @@ namespace GymLog.MVC.Controllers
                 HandleBadRequest(ex);
                 return View();
             }
-
         }
 
 
@@ -38,9 +37,16 @@ namespace GymLog.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                await ClientHelper.Instance.PostAsync("/api/muscles", model, User.Identity.Name);
-                TempData["message"] = string.Format("Mięsień został dodany!");
-                return RedirectToAction("Index");
+                try
+                {
+                    await ClientHelper.Instance.PostAsync("/api/muscles", model, User.Identity.Name);
+                    TempData["message"] = string.Format("Mięsień został dodany!");
+                    return RedirectToAction("Index");
+                }
+                catch (ApiException ex)
+                {
+                    HandleBadRequest(ex);
+                }
             }
             ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
@@ -53,7 +59,6 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             try
             {
                 var muscle = await ClientHelper.Instance.GetAsync<MuscleViewModel>($"/api/muscles/{id}", User.Identity.Name);
@@ -77,12 +82,20 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var muscle = await ClientHelper.Instance.GetAsync<MuscleViewModel>($"/api/muscles/{id}", User.Identity.Name);
-            if (muscle == null)
+            try
             {
-                return HttpNotFound();
+                var muscle = await ClientHelper.Instance.GetAsync<MuscleViewModel>($"/api/muscles/{id}", User.Identity.Name);
+                if (muscle == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(muscle);
             }
-            return View(muscle);
+            catch (ApiException ex)
+            {
+                HandleBadRequest(ex);
+                return View();
+            }
         }
 
         [HttpPost]
@@ -91,9 +104,17 @@ namespace GymLog.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                await ClientHelper.Instance.PutAsync($"/api/muscles/{model.Id}", model, User.Identity.Name);
-                TempData["message"] = string.Format("Mięsień został zedytowany!");
-                return RedirectToAction("Index");
+                try
+                {
+                    await ClientHelper.Instance.PutAsync($"/api/muscles/{model.Id}", model, User.Identity.Name);
+                    TempData["message"] = string.Format("Mięsień został zedytowany!");
+                    return RedirectToAction("Index");
+                }
+                catch (ApiException ex)
+                {
+                    HandleBadRequest(ex);
+                    return View();
+                }
             }
             ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
@@ -106,12 +127,21 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var muscle = await ClientHelper.Instance.GetAsync<MuscleViewModel>($"/api/muscles/{id}", User.Identity.Name);
-            if (muscle == null)
+            try
             {
-                return HttpNotFound();
+                var muscle = await ClientHelper.Instance.GetAsync<MuscleViewModel>($"/api/muscles/{id}", User.Identity.Name);
+                if (muscle == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(muscle);
             }
-            return View(muscle);
+            catch (ApiException ex)
+            {
+                HandleBadRequest(ex);
+                return View();
+            }
+
         }
 
 

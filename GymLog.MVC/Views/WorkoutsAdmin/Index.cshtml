@@ -1,0 +1,96 @@
+﻿@model IEnumerable<GymLog.MVC.Models.WorkoutViewModel>
+@{
+    ViewBag.Title = "Treningi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Styles.Render("~/DatatablesCSS")
+
+@section Breadcrumb{
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-handshake-o"></i> @ViewBag.Title</h1>
+            <p>Zarządzanie treningami</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "PanelAdmin")"><i class="fa fa-home fa-lg"></i></a></li>
+            <li class="breadcrumb-item">@ViewBag.Title</li>
+        </ul>
+    </div>
+}
+
+<div class="col-12">
+    <div class="tile">
+        <a href="@Url.Action("Create", "WorkoutsAdmin")"><i class="fa fa-plus fa-lg"></i> Nowy trening</a>
+        <table class="table table-hover table-bordered" id="itemsTable">
+            <thead>
+                <tr class="text-center">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Exercise.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sets)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reps)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Weight)
+                    </th>
+                    <th>
+                        Akcje
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.UserId
+                        </td>
+                        <td>
+                            @item.Exercise.Name
+                        </td>
+                        <td>
+                            @item.Sets
+                        </td>
+                        <td>
+                            @item.Reps
+                        </td>
+                        <td>
+                            @item.Weight
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Details", "WorkoutsAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>
+                            <a href="@Url.Action("Edit", "WorkoutsAdmin", new { id = item.Id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                            <a href="@Url.Action("Delete", "WorkoutsAdmin", new { id = item.Id })"><i class="fa fa-trash fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/DatatablesJS")
+    <script type="text/javascript">
+        $('#itemsTable').DataTable({
+            //"columns": [
+            //    { "width": "10%" },
+            //    { "width": "30%" },
+            //    { "width": "50%" },
+            //    { "width": "10%" }
+            //]
+        });</script>
+}

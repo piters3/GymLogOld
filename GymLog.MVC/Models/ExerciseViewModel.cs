@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GymLog.MVC.Models
 {
@@ -16,11 +15,15 @@ namespace GymLog.MVC.Models
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Mięśnie użyte podczas ćwiczenia")]
-        public IEnumerable<MuscleViewModel> Muscles { get; set; }
+        [Display(Name = "Ćwiczony mięsień")]
+        public int MuscleId { get; set; }
+        [Display(Name = "Ćwiczony mięsień")]
+        public virtual MuscleViewModel Muscle { get; set; }
 
         [Required]
         [Display(Name = "Sprzęt")]
-        public EquipmentViewModel Equipment { get; set; }
+        public int EquipmentId { get; set; }
+        [Display(Name = "Sprzęt")]
+        public virtual EquipmentViewModel Equipment { get; set; }
     }
 }

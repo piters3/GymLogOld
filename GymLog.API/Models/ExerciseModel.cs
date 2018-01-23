@@ -7,7 +7,7 @@ namespace GymLog.API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public IEnumerable<MuscleModel> Muscles { get; set; }
+        public MuscleModel Muscle { get; set; }
         public EquipmentModel Equipment { get; set; }
     }
 }
