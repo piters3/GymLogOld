@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Linq;
 
 namespace GymLog.MVC.Controllers
 {
@@ -60,7 +59,6 @@ namespace GymLog.MVC.Controllers
                 {
                     HandleBadRequest(ex);
                 }
-
             }
             ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
@@ -73,7 +71,6 @@ namespace GymLog.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             try
             {
                 var ex = await ClientHelper.Instance.GetAsync<ExerciseViewModel>($"/api/exercises/{id}", User.Identity.Name);
@@ -142,33 +139,9 @@ namespace GymLog.MVC.Controllers
         }
 
 
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            try
-            {
-                var ex = await ClientHelper.Instance.GetAsync<ExerciseViewModel>($"/api/exercises/{id}", User.Identity.Name);
-                if (ex == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(ex);
-            }
-            catch (ApiException ex)
-            {
-                HandleBadRequest(ex);
-                return View();
-            }
-
-        }
-
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {

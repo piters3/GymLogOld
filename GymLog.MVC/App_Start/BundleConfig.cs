@@ -44,6 +44,10 @@ namespace GymLog.MVC
             bundles.Add(new ScriptBundle("~/Validate").Include(
                          "~/Scripts/Admin/jquery.validate.min.js",
                          "~/Scripts/Admin/jquery.validate.unobtrusive.min.js"));
+
+            //SWEETALERT
+            bundles.Add(new ScriptBundle("~/SweetAlert").Include(
+                         "~/Scripts/Admin/sweetalert.min.js"));
         }
     }
 }

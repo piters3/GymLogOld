@@ -1,0 +1,66 @@
+﻿@model GymLog.MVC.Models.WorkoutViewModel
+@{
+    ViewBag.Title = "Dodawanie treningu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Breadcrumb{
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-handshake-o"></i> @ViewBag.Title</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "PanelAdmin")"><i class="fa fa-home fa-lg"></i></a></li>
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "WorkoutsAdmin")">Treningi</a></li>
+            <li class="breadcrumb-item">@ViewBag.Title</li>
+        </ul>
+    </div>
+}
+
+<div class="col-md-4">
+    <div class="tile">
+        @using (Html.BeginForm("Create", "WorkoutsAdmin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+            {
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @Html.ValidationSummary(true, "")
+                </div>
+            }
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId)
+                @Html.DropDownListFor(model => model.UserId, ViewBag.UsersList as SelectList, "Wybierz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Exercise)
+                @Html.DropDownListFor(model => model.ExerciseId, ViewBag.ExercisesList as SelectList, "Wybierz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExerciseId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sets)
+                @Html.TextBoxFor(model => model.Sets, new { @class = "form-control", type = "number", min = "1", max = "5" })
+                @Html.ValidationMessageFor(model => model.Sets, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reps)
+                @Html.TextBoxFor(model => model.Reps, new { @class = "form-control", type = "number", min = "1", max = "15" })
+                @Html.ValidationMessageFor(model => model.Reps, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Weight)
+                @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", type = "number", min = "1" })
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+            <div class="tile-footer">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Zapisz</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Validate")
+}

@@ -24,6 +24,8 @@ namespace GymLog.MVC.Models
 
         [Required]
         [Display(Name = "Ćwiczenie")]
+        public int ExerciseId { get; set; }
+        [Display(Name = "Ćwiczenie")]
         public virtual ExerciseViewModel Exercise { get; set; }
     }
 }

@@ -180,6 +180,7 @@
     <Content Include="Scripts\Admin\pace.min.js" />
     <Content Include="Scripts\Admin\popper.min.js" />
     <Content Include="Scripts\Admin\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Admin\sweetalert.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -204,7 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -222,15 +222,13 @@
     <Content Include="Views\EquipmentsAdmin\Details.cshtml" />
     <Content Include="Views\UsersAdmin\Details.cshtml" />
     <Content Include="Views\MusclesAdmin\Edit.cshtml" />
-    <Content Include="Views\MusclesAdmin\Delete.cshtml" />
     <Content Include="Views\EquipmentsAdmin\Edit.cshtml" />
-    <Content Include="Views\EquipmentsAdmin\Delete.cshtml" />
     <Content Include="Views\ExercisesAdmin\Index.cshtml" />
     <Content Include="Views\ExercisesAdmin\Details.cshtml" />
     <Content Include="Views\ExercisesAdmin\Create.cshtml" />
     <Content Include="Views\ExercisesAdmin\Edit.cshtml" />
-    <Content Include="Views\ExercisesAdmin\Delete.cshtml" />
     <Content Include="Views\WorkoutsAdmin\Index.cshtml" />
+    <Content Include="Views\WorkoutsAdmin\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

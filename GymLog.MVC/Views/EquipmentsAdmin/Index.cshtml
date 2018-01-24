@@ -49,7 +49,13 @@
                         <td class="text-center">
                             <a href="@Url.Action("Details", "EquipmentsAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>
                             <a href="@Url.Action("Edit", "EquipmentsAdmin", new { id = item.Id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
-                            <a href="@Url.Action("Delete", "EquipmentsAdmin", new { id = item.Id })"><i class="fa fa-trash fa-lg"></i></a>
+                            <a href="#" class="buttonDelete" onclick="setId(@item.Id)"><i class="fa fa-trash fa-lg"></i></a>
+
+                            @using (Html.BeginForm("Delete", "EquipmentsAdmin", new { id = item.Id }, FormMethod.Post, htmlAttributes: new { id = "deleteForm" + item.Id }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" hidden />
+                            }
                         </td>
                     </tr>
                 }
@@ -60,6 +66,8 @@
 
 @section Scripts {
     @Scripts.Render("~/DatatablesJS")
+    @Scripts.Render("~/SweetAlert")
+
     <script type="text/javascript">
         $('#itemsTable').DataTable({
             "columns": [
@@ -67,5 +75,33 @@
                 { "width": "80%" },
                 { "width": "10%" }
             ]
-        });</script>
+        });
+
+        var global;
+        function setId(id) {
+            global = id;
+        };
+
+        $('.buttonDelete').click(function () {
+            swal({
+                title: "Jesteś pewny?",
+                text: "Nie będziesz w stanie cofnąć tej operacji!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Tak, usuń!",
+                cancelButtonText: "Nie, cofnij!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    swal("Usunięte!", "Element został usunięty", "success");
+                    $('.confirm').on('click', () => {
+                        $('#deleteForm' + global).submit();
+                    })
+                } else {
+                    swal("Anulowano", "Dane nie zostały usunięte", "error");
+                }
+            });
+        });
+    </script>
 }

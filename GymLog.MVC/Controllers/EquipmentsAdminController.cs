@@ -23,7 +23,6 @@ namespace GymLog.MVC.Controllers
                 HandleBadRequest(ex);
                 return View();
             }
-
         }
 
 
@@ -48,7 +47,6 @@ namespace GymLog.MVC.Controllers
                 {
                     HandleBadRequest(ex);
                 }
-
             }
             ModelState.AddModelError("", "Popraw błędy formularza");
             return View(model);
@@ -123,32 +121,9 @@ namespace GymLog.MVC.Controllers
         }
 
 
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            try
-            {
-                var eq = await ClientHelper.Instance.GetAsync<EquipmentViewModel>($"/api/equipments/{id}", User.Identity.Name);
-                if (eq == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(eq);
-            }
-            catch (ApiException ex)
-            {
-                HandleBadRequest(ex);
-                return View();
-            }
-        }
-
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {

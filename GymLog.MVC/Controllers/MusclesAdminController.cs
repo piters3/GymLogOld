@@ -121,33 +121,9 @@ namespace GymLog.MVC.Controllers
         }
 
 
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            try
-            {
-                var muscle = await ClientHelper.Instance.GetAsync<MuscleViewModel>($"/api/muscles/{id}", User.Identity.Name);
-                if (muscle == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(muscle);
-            }
-            catch (ApiException ex)
-            {
-                HandleBadRequest(ex);
-                return View();
-            }
-
-        }
-
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
