@@ -56,6 +56,8 @@ namespace GymLog.API.Controllers
                 Email = u.Email,
                 EmailConfirmed = u.EmailConfirmed,
                 PhoneNumber = u.PhoneNumber,
+                LockoutEnabled = u.LockoutEnabled,
+                PhoneNumberConfirmed = u.PhoneNumberConfirmed
                 //Workouts = u.Workouts.Select(w => Create(w)),
                 //Daylogs = u.Daylogs.Select(d => Create(d))
             };

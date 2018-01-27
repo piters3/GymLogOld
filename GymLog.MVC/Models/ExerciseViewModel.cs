@@ -7,7 +7,7 @@ namespace GymLog.MVC.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Nazwa")]
+        [Display(Name = "Nazwa ćwiczenia")]
         public string Name { get; set; }
 
         [Required]

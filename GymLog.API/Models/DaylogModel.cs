@@ -9,6 +9,7 @@ namespace GymLog.API.Models
         public DateTime Date { get; set; }
         public string UserId { get; set; }
         //public UserModel User { get; set; }
+        public virtual UserShortViewModel User { get; set; }
         public IEnumerable<WorkoutModel> Workouts { get; set; }
     }
 }

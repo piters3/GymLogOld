@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\DaylogsAdminController.cs" />
     <Compile Include="Controllers\EquipmentsAdminController.cs" />
     <Compile Include="Controllers\ExercisesAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Models\DaylogViewModel.cs" />
     <Compile Include="Models\EquipmentViewModel.cs" />
     <Compile Include="Models\ExerciseViewModel.cs" />
     <Compile Include="Models\JsonBadRequest.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Models\MuscleViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SignInResult.cs" />
+    <Compile Include="Models\UserShortViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkoutViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -229,6 +232,11 @@
     <Content Include="Views\ExercisesAdmin\Edit.cshtml" />
     <Content Include="Views\WorkoutsAdmin\Index.cshtml" />
     <Content Include="Views\WorkoutsAdmin\Create.cshtml" />
+    <Content Include="Views\WorkoutsAdmin\Details.cshtml" />
+    <Content Include="Views\WorkoutsAdmin\Edit.cshtml" />
+    <Content Include="Views\DaylogsAdmin\Index.cshtml" />
+    <Content Include="Views\DaylogsAdmin\Details.cshtml" />
+    <Content Include="Views\DaylogsAdmin\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

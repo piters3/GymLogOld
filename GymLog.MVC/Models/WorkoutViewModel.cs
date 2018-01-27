@@ -18,9 +18,13 @@ namespace GymLog.MVC.Models
         [Display(Name = "Obciążenie")]
         public int Weight { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Id użytkownika")]
         public string UserId { get; set; }
+
+        //[Required]
+        [Display(Name = "Użytkownik")]
+        public virtual UserShortViewModel User { get; set; }
 
         [Required]
         [Display(Name = "Ćwiczenie")]

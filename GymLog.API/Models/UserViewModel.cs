@@ -7,6 +7,8 @@
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
+        public bool LockoutEnabled { get; set; }
 
         //public IEnumerable<WorkoutModel> Workouts { get; set; }
         //public IEnumerable<DaylogModel> Daylogs { get; set; }

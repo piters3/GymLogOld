@@ -7,9 +7,9 @@
         public int Reps { get; set; }
         public int Weight { get; set; }
 
-        public string UserId { get; set; }
+        //public string UserId { get; set; }
 
-        //public virtual UserModel User { get; set; }
+        public virtual UserShortViewModel User { get; set; }
         public virtual ExerciseModel Exercise { get; set; }
     }
 }

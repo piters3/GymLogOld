@@ -63,6 +63,17 @@ namespace GymLog.API.Models
         }
 
 
+        public UserShortViewModel CreateShortView(User u)
+        {
+            return new UserShortViewModel()
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Email = u.Email
+            };
+        }
+
+
         public WorkoutModel Create(Workout w)
         {
             return new WorkoutModel()
@@ -71,8 +82,8 @@ namespace GymLog.API.Models
                 Reps = w.Reps,
                 Sets = w.Sets,
                 Weight = w.Weight,
-                UserId = w.UserId,
-                //User = Create(w.User), //Odrzuca połączenie
+                //UserId = w.UserId,
+                User = CreateShortView(w.User), //Odrzuca połączenie
                 Exercise = Create(w.Exercise)
             };
         }
@@ -85,6 +96,7 @@ namespace GymLog.API.Models
                 Id = d.Id,
                 Date = d.Date,
                 //User = Create(d.User),    //Odrzuca połączenie
+                User = CreateShortView(d.User), //Odrzuca połączenie
                 Workouts = d.Workouts.Select(w => Create(w)),
                 UserId = d.UserId
             };
