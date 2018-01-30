@@ -62,6 +62,20 @@ namespace GymLog.API.Models
             };
         }
 
+        public UserViewModel CreateUserViewModel(User u)
+        {
+            return new UserViewModel()
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Email = u.Email,
+                EmailConfirmed = u.EmailConfirmed,
+                PhoneNumber = u.PhoneNumber,
+                LockoutEnabled = u.LockoutEnabled,
+                PhoneNumberConfirmed = u.PhoneNumberConfirmed
+            };
+        }
+
 
         public UserShortViewModel CreateShortView(User u)
         {

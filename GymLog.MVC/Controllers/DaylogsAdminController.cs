@@ -32,8 +32,14 @@ namespace GymLog.MVC.Controllers
             {
                 var users = await ClientHelper.Instance.GetAsync<IEnumerable<UserViewModel>>("/api/users", User.Identity.Name);
                 var workouts = await ClientHelper.Instance.GetAsync<IEnumerable<WorkoutViewModel>>("/api/workouts", User.Identity.Name);
+                var exercises = await ClientHelper.Instance.GetAsync<IEnumerable<ExerciseViewModel>>("/api/exercises", User.Identity.Name);
                 ViewBag.UsersList = new SelectList(users, "Id", "UserName");
-                //ViewBag.WorkoutsList = new SelectList(workouts, "Id", "Name");
+
+                //var workoutsList = new MultiSelectList(exercises);
+                //workoutsList.DataValueField = 
+
+                ViewBag.ExercisesList = new MultiSelectList(exercises, "Id", "Name");
+                ViewBag.WorkoutsList = new MultiSelectList(workouts, "Id", "DisplayValue");
             }
             catch (ApiException ex)
             {
@@ -45,12 +51,32 @@ namespace GymLog.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DaylogViewModel model)
+        public async Task<ActionResult> Create(DaylogViewModel model, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    int i = 0;
+                    List<WorkoutViewModel> list = new List<WorkoutViewModel>();
+                    foreach (var id in model.WorkoutsIds)
+                    {
+                        var workout = await ClientHelper.Instance.GetAsync<WorkoutViewModel>($"/api/workouts/{id}", User.Identity.Name);
+                        WorkoutViewModel wk = new WorkoutViewModel()
+                        {
+                            //Id = workout.Id,
+                            //ExerciseId = workout.ExerciseId,
+                            Exercise = workout.Exercise,
+                            Sets = model.ExerciseDetails[i],
+                            Reps = model.ExerciseDetails[i+1],
+                            Weight = model.ExerciseDetails[i+2],
+                            UserId = model.UserId
+                        };
+                        list.Add(wk);
+                        i += 3;
+                    }
+
+                    model.Workouts = list;
                     await ClientHelper.Instance.PostAsync("/api/daylogs", model, User.Identity.Name);
                     TempData["message"] = string.Format("Plan treningowy został dodany!");
                     return RedirectToAction("Index");
@@ -85,6 +111,24 @@ namespace GymLog.MVC.Controllers
                 HandleBadRequest(ex);
                 return View();
             }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                await ClientHelper.Instance.DeleteAsync<DaylogViewModel>($"/api/daylogs/{id}", User.Identity.Name);
+            }
+            catch (ApiException ex)
+            {
+                HandleBadRequest(ex);
+                return View();
+            }
+            TempData["message"] = string.Format("Plan treningowy został usunięty!");
+            return RedirectToAction("Index");
         }
     }
 }

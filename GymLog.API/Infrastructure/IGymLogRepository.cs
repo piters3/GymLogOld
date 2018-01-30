@@ -43,5 +43,7 @@ namespace GymLog.API.Infrastructure
         void Insert(Daylog dl);
         bool Update(Daylog dl);
         void Delete(Daylog dl);
+
+        IQueryable<Workout> GetUserWorkouts(string id);
     }
 }

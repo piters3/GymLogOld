@@ -6,6 +6,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.DataHandler.Serializer;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -126,6 +127,21 @@ namespace GymLog.MVC.Controllers
             {
                 var userInfo = await ClientHelper.Instance.GetAsync<UserViewModel>("/api/Account/UserInfo", User.Identity.Name);
                 return View(userInfo);
+            }
+            catch (ApiException ex)
+            {
+                HandleBadRequest(ex);
+            }
+            return View();
+        }
+
+
+        public async Task<ActionResult> Workouts()
+        {
+            try
+            {
+                var userWorkouts = await ClientHelper.Instance.GetAsync<IEnumerable<WorkoutViewModel>>("/api/Account/UserWorkouts", User.Identity.Name);
+                return View(userWorkouts);
             }
             catch (ApiException ex)
             {

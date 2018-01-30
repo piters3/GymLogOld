@@ -129,8 +129,8 @@ namespace GymLog.API.Migrations
 
 
             var daylogs = new List<Daylog> {
-                new Daylog(){Id = 1, Date = DateTime.Now, UserId = context.Users.FirstOrDefault().Id, Workouts = new List<Workout>() },
-                new Daylog(){Id = 2, Date = DateTime.Now, UserId = context.Users.FirstOrDefault().Id, Workouts = new List<Workout>() }
+                new Daylog(){Id = 1, Date = DateTime.Today, UserId = context.Users.FirstOrDefault().Id, Workouts = new List<Workout>() },
+                new Daylog(){Id = 2, Date = DateTime.Today, UserId = context.Users.FirstOrDefault().Id, Workouts = new List<Workout>() }
             };
             daylogs.ForEach(s => context.Daylogs.AddOrUpdate(p => p.Id, s));
             context.SaveChanges();

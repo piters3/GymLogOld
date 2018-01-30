@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GymLog.MVC.Models
 {
@@ -31,5 +32,13 @@ namespace GymLog.MVC.Models
         public int ExerciseId { get; set; }
         [Display(Name = "Ćwiczenie")]
         public virtual ExerciseViewModel Exercise { get; set; }
+
+        public String DisplayValue
+        {
+            get
+            {
+                return Exercise.Name + " " + Sets.ToString() + " x " + Reps.ToString() + " x " + Weight.ToString();
+            }
+        }
     }
 }

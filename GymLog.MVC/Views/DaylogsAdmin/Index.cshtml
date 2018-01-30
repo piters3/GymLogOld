@@ -50,7 +50,7 @@
                             @item.User.UserName
                         </td>
                         <td>
-                            @item.Date
+                            @item.Date.ToShortDateString()
                         </td>
                         <td class="text-center">
                             <a href="@Url.Action("Details", "DaylogsAdmin", new { id = item.Id })"><i class="fa fa-eye fa-lg"></i></a>

@@ -1,9 +1,12 @@
 ﻿using GymLog.API.Entities;
+using GymLog.API.Infrastructure;
 using GymLog.API.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -46,22 +49,29 @@ namespace GymLog.API.Controllers
         [Route("UserInfo")]
         public async Task<UserViewModel> GetUserInfo()
         {
+            ModelFactory _modelFactory = new ModelFactory();
+            var id = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(id);
+            return _modelFactory.CreateUserViewModel(user);
+        }
+
+
+        // GET api/Account/UserWorkouts
+        [HttpGet]
+        [Route("UserWorkouts")]
+        public async Task<IEnumerable<WorkoutModel>> UserWorkouts()
+        {
+            ModelFactory _modelFactory = new ModelFactory();
+            GymLogContext ctx = new GymLogContext();
+            GymLogRepository _repo = new GymLogRepository(ctx);
             var id = User.Identity.GetUserId();
             var u = await UserManager.FindByIdAsync(id);
 
-            return new UserViewModel()
-            {
-                Id = u.Id,
-                UserName = u.UserName,
-                Email = u.Email,
-                EmailConfirmed = u.EmailConfirmed,
-                PhoneNumber = u.PhoneNumber,
-                LockoutEnabled = u.LockoutEnabled,
-                PhoneNumberConfirmed = u.PhoneNumberConfirmed
-                //Workouts = u.Workouts.Select(w => Create(w)),
-                //Daylogs = u.Daylogs.Select(d => Create(d))
-            };
+            var userWorkouts = _repo.GetUserWorkouts(id).ToList().Select(m => _modelFactory.Create(m));
+
+            return userWorkouts;
         }
+
 
         // POST api/Account/Logout
         [Route("Logout")]

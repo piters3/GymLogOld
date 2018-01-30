@@ -48,6 +48,15 @@ namespace GymLog.MVC
             //SWEETALERT
             bundles.Add(new ScriptBundle("~/SweetAlert").Include(
                          "~/Scripts/Admin/sweetalert.min.js"));
+
+            //DATEPICKER
+            bundles.Add(new ScriptBundle("~/DatePicker").Include(
+                         "~/Scripts/Admin/bootstrap-datepicker.min.js",
+                         "~/Scripts/Admin/bootstrap-datepicker.pl.min.js"));
+
+            //SELECT2
+            bundles.Add(new ScriptBundle("~/Select2").Include(
+                         "~/Scripts/Admin/select2.min.js"));
         }
     }
 }

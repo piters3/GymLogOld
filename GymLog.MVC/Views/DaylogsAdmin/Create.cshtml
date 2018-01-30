@@ -1,7 +1,148 @@
-﻿
+﻿@model GymLog.MVC.Models.DaylogViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Dodawanie planu treningowego";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Create</h2>
+@section Breadcrumb{
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-calendar"></i> @ViewBag.Title</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "PanelAdmin")"><i class="fa fa-home fa-lg"></i></a></li>
+            <li class="breadcrumb-item"> <a href="@Url.Action("Index", "DaylogsAdmin")">Plany treningowe</a></li>
+            <li class="breadcrumb-item">@ViewBag.Title</li>
+        </ul>
+    </div>
+}
 
+<div class="col-md-6">
+    <div class="tile">
+        @using (Html.BeginForm("Create", "DaylogsAdmin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+            {
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @Html.ValidationSummary(true, "")
+                </div>
+            }
+            <div class="form-group">
+                @Html.LabelFor(model => model.User.UserName)
+                @Html.DropDownListFor(model => model.UserId, ViewBag.UsersList as SelectList, "Wybierz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.User.Id, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date)
+                @Html.TextBoxFor(model => model.Date, new { @class = "form-control", id = "daylogDate", placeholder = "Wybierz datę" })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                Co chcesz ćwiczyć? <br />
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myWorkoutsModal">Moje treningi</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#dbExercisesModal" id="dbExercisesBtn">Wybierz z bazy</button>
+            </div>
+
+            <!-- User Workouts Model -->
+            <div class="modal fade" id="myWorkoutsModal" tabindex="-1" role="dialog" aria-labelledby="myWorkoutsModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myWorkoutsModalTitle">Moje treningi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @*@Html.LabelFor(model => model.Workouts)*@
+                            @Html.DropDownListFor(model => model.WorkoutsIds, ViewBag.WorkoutsList as MultiSelectList, new { @class = "form-control", multiple = "multiple" })
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                            <button type="button" class="btn btn-primary" id="userWorkoutsBtnSave">Zapisz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DB Exercises Model -->
+            <div class="modal fade" id="dbExercisesModal" tabindex="-1" role="dialog" aria-labelledby="dbExercisesModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="dbExercisesModalTitle">Ćwiczenia z bazy</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.)*@
+                                @*@Html.DropDownListFor(model => model.Workouts., ViewBag.ExercisesList as SelectList, "Wybierz", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ExerciseId, "", new { @class = "text-danger" })*@
+
+                                @*@Html.LabelFor(model => model.ExercisesIds)
+                                    @Html.DropDownListFor(model=>model.ExercisesIds, ViewBag.ExercisesList as MultiSelectList, new { @class = "form-control", multiple = "multiple" })*@
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                            <button type="button" class="btn btn-primary">Zapisz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tile-footer">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Zapisz</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/Validate")*@
+    @Scripts.Render("~/DatePicker")
+    @Scripts.Render("~/Select2")
+
+    <script type="text/javascript">
+        $('#daylogDate').datepicker({
+            format: "dd.mm.yyyy",
+            autoclose: true,
+            todayHighlight: true,
+            language: 'pl'
+        });
+
+        $("#WorkoutsIds").select2({
+            width: '100%'
+        });
+
+        $('#userWorkoutsBtnSave').click(() => {
+            var forms = [[]];
+            var tab = $('.select2-selection__choice');
+            for (var i = 0; i < tab.length; i++) {
+                forms[i] = tab[i].title.split(' ').map(Number).filter(Boolean);
+            }
+            console.log(forms);
+
+
+            for (var i = 0; i < forms.length; i++) {
+                for (var j = 0; j < forms[i].length; j++) {
+                    var input = $('<input>').attr({
+                        type: 'number',
+                        class: 'form-control',
+                        id: '[' + i.toString() + ']' + '[' + j.toString() + ']',
+                        name: 'ExerciseDetails',
+                        value: forms[i][j],
+                    });
+                    input.width(70);
+                    $('#dbExercisesBtn').before(input);
+                }
+            }
+        });
+
+    </script>
+}

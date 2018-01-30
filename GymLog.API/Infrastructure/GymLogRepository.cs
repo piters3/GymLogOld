@@ -242,5 +242,10 @@ namespace GymLog.API.Infrastructure
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public IQueryable<Workout> GetUserWorkouts(string id)
+        {
+            return _ctx.Workouts.Where(w => w.UserId == id);
+        }
     }
 }
